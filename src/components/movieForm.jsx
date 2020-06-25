@@ -14,6 +14,7 @@ class MovieForm extends React.Component {
     isDisable: true,
     currentValue: null,
     propsDataMovie: null,
+    flag: false,
   };
 
   validate = (name, value) => {
@@ -62,7 +63,7 @@ class MovieForm extends React.Component {
       this.setState({ data });
     }
 
-    this.setState({ newMovie, currentId, currentValue });
+    this.setState({ newMovie, currentId, currentValue, flag: true });
   };
 
   handleSubmit = (e, movie) => {
@@ -74,7 +75,7 @@ class MovieForm extends React.Component {
   render() {
     const moviesDesc = getMovies(),
       lastId = moviesDesc[moviesDesc.length - 1]._id,
-      { inputsTitle, newMovie, data, error, currentValue } = this.state,
+      { inputsTitle, newMovie, data, error, currentValue, flag } = this.state,
       handler = this.handleChange,
       inputsCondition = Object.values(data),
       nodeName = "Save",
@@ -84,9 +85,16 @@ class MovieForm extends React.Component {
         this.props.location.propsSearch === undefined
           ? ""
           : this.props.location.propsSearch.data,
-      inputData = [inputsTitle, lastId, handler, data, error, propsDataMovie];
+      inputData = [
+        inputsTitle,
+        lastId,
+        handler,
+        data,
+        error,
+        propsDataMovie,
+        flag,
+      ];
 
-    console.log(propsDataMovie);
     return (
       <div className="ml-3">
         <h1>MovieForm</h1>

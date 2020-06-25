@@ -96,13 +96,11 @@ class Movies extends Component {
 
   handleSearch = (e) => {
     const value = e.currentTarget.value;
-    const isSearch = !this.state.isSearch;
+    const isSearch = this.state.isSearch === false ? true : true;
     const currentSortGenre = null;
     const moviesData = getMovies().filter((mD) =>
-      new RegExp(`${value}`, "i").test(mD.title)
+      new RegExp(`${value}`, "i").test(mD.title.substring(0, value.length))
     );
-    console.log(value, moviesData);
-
     this.setState({ isSearch, moviesData, currentSortGenre });
   };
 
@@ -139,6 +137,7 @@ class Movies extends Component {
             <ListGroup
               onSortByGenre={this.onSortByGenre}
               currentSortGenre={currentSortGenre}
+              isSearch={isSearch}
             />
           </div>
           <div class="col-sm">
